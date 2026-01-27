@@ -44,6 +44,6 @@ jobs:
       - name: Verify live endpoint (/health)
         run: |
           sleep 15 # wait a few seconds for deployment
-          curl -f https://devops-88a2.onrender.com/health
+          curl -f https://devops-88a2.onrender.com/healthz
 
 
