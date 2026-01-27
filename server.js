@@ -8,7 +8,11 @@ app.get("/", (req, res) => {
 });
 
 app.get("/health", (req, res) => {
-    res.json({
+    if (!process.env.PORT) {
+        return res.status(500).send("Missing Env");
+    }
+
+    res.status(200).json({
         status: "ok",
         timestamp: new Date().toISOString(),
         version: "1.0.0"
