@@ -1,4 +1,4 @@
-name: CI
+name: CI/CD
 
 on: 
   push:
@@ -26,3 +26,24 @@ jobs:
           node server.js &
           sleep 5
           curl -f http://localhost:3000/health
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build # Only run if CI (build) passes
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy to Render
+        run: |
+          curl -X POST "https://api.render.com/deploy/srv-d5sa7k7gi27c73dq9jp0" \
+          -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
+          -H "Accept: application/json"
+
+      - name: Verify live endpoint (/health)
+        run: |
+          sleep 15 # wait a few seconds for deployment
+          curl -f https://devops-88a2.onrender.com/health
+
+
