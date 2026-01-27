@@ -8,7 +8,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/health", (req, res) => {
-    if (!process.env.PORT) {
+    if (!named) {
         return res.status(500).send("Missing Env");
     }
 
