@@ -8,8 +8,6 @@ app.get("/", (req, res) => {
 });
 
 app.get("/health", (req, res) => {
-    throw new Error("Intentional Runtime Error!");
-
     res.status(200).json({
         status: "ok",
         timestamp: new Date().toISOString(),
