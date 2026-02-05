@@ -8,10 +8,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/health", (req, res) => {
-    const named = true;
-    if (!named) {
-        return res.status(500).send("Missing Env");
-    }
+    throw new Error("Intentional Runtime Error!");
 
     res.status(200).json({
         status: "ok",
